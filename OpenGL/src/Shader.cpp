@@ -15,7 +15,7 @@ Shader::Shader(const std::string& filePath, GLenum shaderType)
 
 Shader::~Shader()
 {
-    glDeleteShader(m_Shader);
+    if (m_Shader) { glDeleteShader(m_Shader); }
 }
 
 bool Shader::readShaderFromFile()

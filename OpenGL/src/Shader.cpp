@@ -60,3 +60,43 @@ bool Shader::compileShader()
     }
     return true;
 }
+
+ShaderProgram::ShaderProgram(GLuint vertexShader, GLuint fragmentShader)
+: m_VertexShader(vertexShader), m_FragmentShader(fragmentShader) 
+{
+    CreateShaderProgram();
+}
+
+unsigned int ShaderProgram::getShaderProgram()
+{
+    return 0;
+}
+
+void ShaderProgram::linkShaderProgram()
+{
+    glLinkProgram(m_ShaderProgram);
+
+    int success;
+    char infoLog[512];
+
+    glGetProgramiv(m_ShaderProgram, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(m_ShaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR: Shader Program Creation Failed\n" << infoLog << std::endl;
+    }
+}
+
+void ShaderProgram::useShaderProgram()
+{
+    glUseProgram(m_ShaderProgram);
+}
+
+bool ShaderProgram::CreateShaderProgram()
+{
+    m_ShaderProgram = glCreateProgram();
+
+    glAttachShader(m_ShaderProgram, m_VertexShader);
+    glAttachShader(m_ShaderProgram, m_FragmentShader);
+
+    return true;
+}

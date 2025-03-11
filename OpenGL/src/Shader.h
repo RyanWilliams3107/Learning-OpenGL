@@ -27,3 +27,18 @@ private:
 	GLuint m_Shader;
 };
 
+class ShaderProgram {
+
+public:
+	ShaderProgram(GLuint vertexShader, GLuint fragmentShader);
+	unsigned int getShaderProgram();
+	void linkShaderProgram();
+	void useShaderProgram();
+private:
+	bool CreateShaderProgram();
+private:
+	unsigned int m_ShaderProgram;
+	GLuint m_VertexShader;
+	GLuint m_FragmentShader;
+};
+
